@@ -17,6 +17,13 @@ using std::map;
 using std::vector;
 using std::stringstream;
 
+struct PERSON {
+    string Name;
+    string Group;
+    string Birthday;
+    string Achievement; // влом делать сейчас массив
+} person_type;
+
 auto split(string const& str, const char delim)
 {
     vector<string> out;
@@ -59,7 +66,7 @@ int main()
 
     int count = 0;
 
-    vector<map<string, string>> studentsList;
+    vector<PERSON> studentsList;
     while (true)
     {
         if (count == 10) 
@@ -68,14 +75,14 @@ int main()
             break;
         }
 
-        map <string, string> student;
+        struct PERSON student;
 
         int studentNum = count + 1;
         cout << "Студент №" << studentNum <<endl << endl;
-        student["Name"] = printData("Введите ФИО");
-        student["Group"] = printData("Введите номер группы");
-        student["Birthday"] = printData("Введите дату рождения");
-        student["Achievement"] = printData("Введите успеваемость");
+        student.Name = printData("Введите ФИО");
+        student.Group = printData("Введите номер группы");
+        student.Birthday = printData("Введите дату рождения");
+        student.Achievement = printData("Введите успеваемость");
 
         studentsList.push_back(student);
         std::cout << "2. size: " << studentsList.size() << '\n';
@@ -90,14 +97,14 @@ int main()
     cout << left << setw(6) << "ID# " << left << setw(22) << "FIO "  << std::setw(12) << "Group" << endl;
 
     int num = 1;
-    for (map <string, string> student : studentsList)
+    for (auto& student : studentsList)
     {
         
-        vector <string> marks = split(student["Achievement"], ',');
+        vector <string> marks = split(student.Achievement, ',');
         float ball = getBall(marks);
         if (ball < 4.0) continue;
 
-        cout << left << setw(6) << num << left << setw(22) << student["Name"] << std::setw(12) << student["Group"] << endl;
+        cout << left << setw(6) << num << left << setw(22) << student.Name << std::setw(12) << student.Group << endl;
         num++;
     }    
 
