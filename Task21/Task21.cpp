@@ -16,32 +16,33 @@ using std::endl;
 using std::map;
 using std::vector;
 using std::stringstream;
+using std::to_string;
 
 struct PERSON {
     string Name;
     string Group;
     string Birthday;
-    string Achievement; // влом делать сейчас массив
+    vector<int> Achievement;
 } person_type;
 
 auto split(string const& str, const char delim)
 {
-    vector<string> out;
+    vector<int> out;
     stringstream ss(str);
 
     string s;
     while (getline(ss, s, delim)) {
-        out.push_back(s);
+        out.push_back(stoi(s));
     }
     return out;
 }
-float getBall(vector<string> marks) 
+float getBall(vector<int> marks) 
 {
    
     int summ = 0;
-    for (string mark : marks)
+    for (int mark : marks)
     {
-        summ += stoi(mark);
+        summ += mark;
     }
 
     float ball = summ / marks.size();
@@ -58,6 +59,13 @@ auto printData(string field)
     return output;
 }
 
+void printRow(string col1, string col2, string col3) 
+{
+    cout << left << setw(6) << col1 << left << setw(22) << col2 << std::setw(12) << col3 << endl;
+    for (int i = 0; i < 40; i++)cout << '-';
+    cout << endl;
+}
+
 int main()
 {
     setlocale(LC_ALL, "Russian");
@@ -69,7 +77,7 @@ int main()
     vector<PERSON> studentsList;
     while (true)
     {
-        if (count == 10) 
+        if (count == 2) 
         {
             cout << "Список студентов заполнен" << endl;
             break;
@@ -82,10 +90,10 @@ int main()
         student.Name = printData("Введите ФИО");
         student.Group = printData("Введите номер группы");
         student.Birthday = printData("Введите дату рождения");
-        student.Achievement = printData("Введите успеваемость");
+        string mark = printData("Введите успеваемость");
+        student.Achievement = split(mark, ',');
 
         studentsList.push_back(student);
-        std::cout << "2. size: " << studentsList.size() << '\n';
         count++;
     }
 
@@ -94,17 +102,13 @@ int main()
 
     cout << endl << "Список студентов, чей проходной балл выше 4,0" << endl << endl;
 
-    cout << left << setw(6) << "ID# " << left << setw(22) << "FIO "  << std::setw(12) << "Group" << endl;
-
+    printRow("ID# ", "FIO ", "Group");
     int num = 1;
     for (auto& student : studentsList)
     {
-        
-        vector <string> marks = split(student.Achievement, ',');
-        float ball = getBall(marks);
+        float ball = getBall(student.Achievement);
         if (ball < 4.0) continue;
-
-        cout << left << setw(6) << num << left << setw(22) << student.Name << std::setw(12) << student.Group << endl;
+        printRow(to_string(num), student.Name, student.Group);
         num++;
     }    
 
