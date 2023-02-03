@@ -23,6 +23,8 @@ struct STUDENT {
     vector<int> Achievement;
 };
 
+vector<STUDENT> studentsList;
+
 auto split(string const& str, const char delim)
 {
     vector<int> out;
@@ -74,6 +76,33 @@ void printLine(string text)
 {
     cout << endl << text << endl << endl;
 }
+void addStudent() {
+    struct STUDENT student;
+
+    int studentNum = studentsList.size() + 1;
+    cout << "Студент №" << studentNum << endl << endl;
+    student.Name = printData("Введите ФИО");
+    student.Group = printData("Введите номер группы");
+    student.Birthday = printData("Введите дату рождения");
+    string mark = printData("Введите успеваемость");
+    student.Achievement = split(mark, ',');
+    studentsList.push_back(student);
+}
+
+void selectTask()
+{
+    string task = printData("Продолжить заполнять список [да/нет]?");
+    if (task == "да")
+    {
+        addStudent();
+        selectTask();
+    }
+    else if (task != "нет" && task != "да")
+    {
+        printLine("Ошибка: не известная команда");
+        selectTask();
+    }
+}
 
 int main()
 {
@@ -81,30 +110,8 @@ int main()
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
-    int count = 0;
-
-    vector<STUDENT> studentsList;
-    while (true)
-    {
-        if (count == 10) 
-        {
-            printLine("Список студентов заполнен");
-            break;
-        }
-
-        struct STUDENT student;
-
-        int studentNum = count + 1;
-        cout << "Студент №" << studentNum <<endl << endl;
-        student.Name = printData("Введите ФИО");
-        student.Group = printData("Введите номер группы");
-        student.Birthday = printData("Введите дату рождения");
-        string mark = printData("Введите успеваемость");
-        student.Achievement = split(mark, ',');
-
-        studentsList.push_back(student);
-        count++;
-    }
+    addStudent();
+    selectTask();
 
     printKeyEnter("для выводы списка студентов, нажмите Enter...");
     printLine("Список студентов, чей проходной балл выше 4,0");
