@@ -46,12 +46,12 @@ int main()
     srand(time(0));
 
     int n = stoi(printData("Введите размер массива"));
-    vector<int> list;    
+    vector<int> list;
 
-    for (int i = 0; i < n; i++) 
+    for (int i = 0; i < n; i++)
     {
         int a = Random(-10, 10);
-        cout << a << " ";        
+        cout << a << " ";
         list.push_back(a);
     }
 
@@ -59,52 +59,40 @@ int main()
 
     int summ = 0;
     int proizv = 0;
-    int minABSidx = 0;
-    int maxABSidx = 0;
-    int min = abs(list.at(0));
-    int max = abs(list.at(0));
-
-    for (int i = 1; i < list.size(); i++)
-    {
-        int num = list.at(i);
-        if (min > abs(num)) 
-        {
-            minABSidx = i;
-            min = abs(num);
-        }
-        if (max < abs(num)) 
-        {
-            maxABSidx = i;
-            max = abs(num);
-        }
-    }
-
-    int start = 0;
-    int end = 0;
-    if (minABSidx > maxABSidx) 
-    {
-        start = maxABSidx;
-        end = minABSidx;
-    }
-    else 
-    {
-        start = minABSidx;
-        end = maxABSidx;
-    }
+    int start = -1;
+    int end = -1;
 
     for (int i = 0; i < list.size(); i++)
     {
-        if (list.at(i) > 0) summ += list.at(i);
-        if (i > start && i < end) 
+        if (start != -1) break;
+        if (list.at(i) == 0) start = i;
+    }
+
+    for (int i = list.size() - 1; i >= 0; i--)
+    {
+        if (end != -1) break;
+        if (list.at(i) == 0) end = i;
+    }
+
+   
+
+    for (int i = 0; i < list.size(); i++)
+    {
+        if (i % 2) 
         {
             if (proizv == 0) proizv = list.at(i);
             else proizv *= list.at(i);
         }
+        if(i > start && i < end) summ += list.at(i);
+        
     }
     cout << endl;
-    printLine("Сумма положительных элементов ровна " + to_string(summ));
-    printLine("Произведение равно " + to_string(proizv));
-
+   
+    printLine("Произведение четных элементов равно " + to_string(proizv));
+    if (start == -1 && end == -1)  printLine("В массиве нет нулей");
+    if (start != -1 && end != -1 && start == end)  printLine("В массиве один ноль");
+    if ((start == -1 || end == -1) && start != end)  printLine("В массиве один ноль");
+    if (start != -1 && end != -1 && start != end)   printLine("Сумма элементов между нулями ровна " + to_string(summ));
 
     printKeyEnter("для завершения нажмите Enter...");
 }

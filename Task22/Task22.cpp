@@ -1,5 +1,4 @@
 ﻿#include <iostream>
-#include <map>
 #include <string>
 #include <vector>
 #include <windows.h>
@@ -13,7 +12,6 @@ using std::cin;
 using std::setw;
 using std::left;
 using std::endl;
-using std::map;
 using std::vector;
 using std::stringstream;
 using std::to_string;
