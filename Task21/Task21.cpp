@@ -66,6 +66,17 @@ void printRow(string col1, string col2, string col3)
     cout << endl;
 }
 
+void printKeyEnter(string text)
+{
+    cout << endl << text << endl;
+    cin.get();
+}
+
+void printLine(string text)
+{
+    cout << endl << text << endl << endl;
+}
+
 int main()
 {
     setlocale(LC_ALL, "Russian");
@@ -79,7 +90,7 @@ int main()
     {
         if (count == 2) 
         {
-            cout << "Список студентов заполнен" << endl;
+            printLine("Список студентов заполнен");
             break;
         }
 
@@ -97,10 +108,8 @@ int main()
         count++;
     }
 
-    cout << endl << "для выводы списка студентов, нажмите Enter..." << endl;
-    cin.get();
-
-    cout << endl << "Список студентов, чей проходной балл выше 4,0" << endl << endl;
+    printKeyEnter("для выводы списка студентов, нажмите Enter...");
+    printLine("Список студентов, чей проходной балл выше 4,0");
 
     printRow("ID# ", "FIO ", "Group");
     int num = 1;
@@ -112,6 +121,5 @@ int main()
         num++;
     }    
 
-    cout << endl << "для завершения нажмите Enter..." << endl;
-    cin.get();
+    printKeyEnter("для завершения нажмите Enter...");
 }
