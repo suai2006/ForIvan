@@ -92,7 +92,7 @@ int main()
     vector<STUDENT> studentsList;
     while (true)
     {
-        if (count == 2)
+        if (count == 10)
         {
             printLine("Список студентов заполнен");
             break;
