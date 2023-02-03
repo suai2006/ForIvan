@@ -18,12 +18,12 @@ using std::vector;
 using std::stringstream;
 using std::to_string;
 
-struct PERSON {
+struct STUDENT {
     string Name;
     string Group;
     string Birthday;
     vector<int> Achievement;
-} person_type;
+};
 
 auto split(string const& str, const char delim)
 {
@@ -74,7 +74,7 @@ int main()
 
     int count = 0;
 
-    vector<PERSON> studentsList;
+    vector<STUDENT> studentsList;
     while (true)
     {
         if (count == 2) 
@@ -83,7 +83,7 @@ int main()
             break;
         }
 
-        struct PERSON student;
+        struct STUDENT student;
 
         int studentNum = count + 1;
         cout << "Студент №" << studentNum <<endl << endl;
